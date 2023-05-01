@@ -107,6 +107,7 @@ int main(int argc, char **argv) {
       };
       // Draw the cube!
       Color cubeColor = (isOccupied ? COLOR_OCCUPIED : COLOR_FREE);
+      voxelSize = static_cast<float>(it.getSize());
       DrawCube(cubePos, voxelSize, voxelSize, voxelSize, cubeColor);
       DrawCubeWires(cubePos, voxelSize, voxelSize, voxelSize, BLACK);
     }
@@ -121,6 +122,7 @@ int main(int argc, char **argv) {
             coordinate.y(),
             coordinate.z(),
         };
+        parentVoxelSize= static_cast<float>(parent_it.getSize());
         DrawCubeWires(cubePos, parentVoxelSize, parentVoxelSize, parentVoxelSize, BLACK);
       }
     }
