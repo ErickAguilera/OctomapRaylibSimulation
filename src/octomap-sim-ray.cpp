@@ -28,11 +28,14 @@ static const Color COLOR_FREE = {0, 228, 48, 120};
 int main(void) {
   // -- Create an Octomap OcTree object
   OcTree tree(0.5);  // Resolution will be overwritten with the loaded object
+
   // -- Raylib Window Initialization
   const int screenWidth = 800;
   const int screenHeight = 450;
   InitWindow(screenWidth, screenHeight, "Model-Ray Collision");
   SetTargetFPS(60);
+  InitAudioDevice();      // Initialize audio device
+  Sound fxWav = LoadSound("res/audio/coin.wav");         // Load WAV audio file
 
   // -- Define the camera
   Camera3D camera = {0};
@@ -72,7 +75,10 @@ int main(void) {
     rayEnd.y() = centerCollision.point.y;
     rayEnd.z() = centerCollision.point.z;
 
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && centerCollision.hit) tree.insertRay(rayOrigin, rayEnd);
+    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && centerCollision.hit) {
+      tree.insertRay(rayOrigin, rayEnd);
+      PlaySound(fxWav);
+    }
 
     //  -- BEGIN DRAWING
     BeginDrawing();
@@ -92,6 +98,8 @@ int main(void) {
   } // while loop end
 
   // De-Initialization
+  UnloadSound(fxWav);     // Unload sound data
+  CloseAudioDevice();     // Close audio device
   UnloadTexture(texture);
   UnloadModel(model);
   CloseWindow();

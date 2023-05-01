@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
 
   // Auxiliary flags
   bool drawFree = true;
-  bool drawParentBox = true;
+  bool drawParentBox = false;
   bool drawGrid = true;
   bool isOccupied = false;
 
